@@ -1,0 +1,144 @@
+/* =========================================================
+   css/styles.css — how the site LOOKS.
+   Start with the colours and fonts in :root: they change the whole site.
+   ========================================================= */
+:root{
+  --bg:#101010; --bg2:#191919; --text:#F5F2ED; --muted:#B8B3AB; --gold:#C6A76A; --line:#343434;
+  --serif:"Bodoni Moda",Georgia,serif;          /* headings */
+  --sans:"DM Sans",system-ui,sans-serif;        /* everything else */
+}
+
+/* ---- Basics ---- */
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:4.5rem}
+body{background:var(--bg);color:var(--text);font:400 1rem/1.7 var(--sans);overflow-x:hidden}
+body:has(dialog[open]){overflow:hidden}         /* page can't scroll behind a popup */
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08}
+h1{font-size:clamp(3rem,9vw,6.5rem);letter-spacing:-.015em}
+h2{font-size:clamp(2rem,5vw,3.2rem);margin-bottom:1.5rem}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+[hidden]{display:none!important}
+.sr{position:absolute;left:-9999px}
+.muted,small{color:var(--muted)}
+.wrap{max-width:1100px;margin:auto;padding:4.5rem 1.25rem}
+.empty{color:var(--muted);padding:1rem 0}
+.note{color:var(--gold);font-size:.85rem}
+.link{background:none;border:0;color:var(--gold);text-decoration:underline;font:inherit;cursor:pointer}
+
+/* ---- Menu (mobile first: dropdown; wide screens: a row) ---- */
+.nav{position:fixed;inset:0 0 auto;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:.5rem 1.25rem;transition:background .3s}
+.nav.solid{background:rgba(16,16,16,.95);border-bottom:1px solid var(--line)}
+.brand{font:500 1.4rem var(--serif);text-decoration:none}
+.burger{background:none;border:0;color:var(--text);font-size:1.6rem;min-width:44px;min-height:44px;cursor:pointer}
+#menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg);border-bottom:1px solid var(--line)}
+#menu.open{display:flex}
+#menu a{padding:1rem 1.25rem;text-decoration:none;color:var(--muted);border-top:1px solid var(--line)}
+#menu a:hover{color:var(--gold)}
+@media(min-width:820px){
+  .burger{display:none}
+  #menu{display:flex;position:static;flex-direction:row;gap:1.75rem;background:none;border:0}
+  #menu a{padding:0;border:0}
+}
+
+/* ---- Buttons ---- */
+.btn{display:inline-block;padding:.85rem 1.6rem;border:1px solid var(--line);background:none;color:var(--text);font:500 .95rem var(--sans);text-decoration:none;cursor:pointer;transition:.25s}
+.btn:hover{border-color:var(--gold);color:var(--gold)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#101010}
+.btn.gold:hover{background:none;color:var(--gold)}
+#more{display:block;margin:2rem auto 0}
+
+/* ---- Hero ---- */
+.hero{min-height:100svh;display:grid;align-items:center;gap:2rem;max-width:1200px;margin:auto;padding:5.5rem 1.25rem 3rem}
+.hero .portrait{order:-1;max-height:48svh;width:100%}
+.eyebrow{color:var(--gold);margin-bottom:1rem;letter-spacing:.02em}
+.lead{color:var(--muted);max-width:34rem;margin:1.25rem 0 2rem}
+.btns{display:flex;flex-wrap:wrap;gap:.75rem}
+@media(min-width:820px){.hero{grid-template-columns:1.1fr .9fr}.hero .portrait{order:0;max-height:none}}
+/* the one entrance animation: hero text rises in */
+.hero-text>*{animation:rise .9s both}
+.hero-text>:nth-child(2){animation-delay:.12s}.hero-text>:nth-child(3){animation-delay:.24s}.hero-text>:nth-child(4){animation-delay:.36s}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}}
+
+/* ---- Photo boxes (shows a tidy placeholder if the image is missing) ---- */
+.portrait{display:block;position:relative;overflow:hidden;aspect-ratio:4/5;background:linear-gradient(160deg,#252525,#151515);border:1px solid var(--line)}
+.portrait img{width:100%;height:100%;object-fit:contain}
+.cap{display:none;position:absolute;inset:0;place-content:center;text-align:center;padding:1rem;color:var(--muted);font-size:.85rem;line-height:1.4}
+.missing img{display:none}
+.missing .cap{display:grid}
+
+/* ---- About ---- */
+.two{display:grid;gap:2.5rem;align-items:start}
+.two .portrait{max-width:420px}
+#bio p{margin-bottom:1.2rem;max-width:62ch;color:var(--muted)}
+@media(min-width:820px){.two{grid-template-columns:.8fr 1.2fr}}
+
+/* ---- Highlights ---- */
+.stats{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:2.5rem}
+.stats b{display:block;font:500 3rem var(--serif);color:var(--gold)}
+
+/* ---- Cards (productions + videos) ---- */
+.grid{display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr))}
+.vids{grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr))}
+.card{display:block;width:100%;background:var(--bg2);border:1px solid var(--line);padding:0;color:inherit;font:inherit;text-align:left;cursor:pointer;transition:transform .3s,border-color .3s}
+.card:hover{transform:translateY(-4px);border-color:var(--gold)}
+.card .portrait{border:0;aspect-ratio:2/3}
+.info{display:block;padding:.9rem}
+.info>*{display:block}
+.info .t{font:500 1.25rem/1.2 var(--serif)}
+.info small{margin-top:.3rem}
+#showreel .card{max-width:800px;margin-bottom:1.5rem}
+
+/* ---- Filmography tools ---- */
+.tools{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;margin-bottom:1.5rem}
+.filters{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{min-height:44px;padding:.5rem 1rem;background:none;border:1px solid var(--line);color:var(--muted);font:inherit;font-size:.9rem;cursor:pointer}
+.chip:hover,.chip[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
+.search{flex:1 1 240px;max-width:360px}
+.search input{width:100%;min-height:44px;padding:.6rem 1rem;background:var(--bg2);border:1px solid var(--line);color:var(--text);font:inherit}
+
+/* ---- Gallery (columns = simple masonry) ---- */
+.gallery{columns:2 160px;column-gap:.75rem}
+@media(min-width:820px){.gallery{columns:3}}
+.gallery button{display:block;width:100%;margin:0 0 .75rem;padding:0;border:0;background:none;cursor:zoom-in;break-inside:avoid}
+
+/* ---- Lists (awards, press, contact) ---- */
+.list{list-style:none;padding:0;max-width:640px}
+.list li{padding:1rem 0;border-top:1px solid var(--line)}
+.list small{display:block}
+.list a{color:var(--gold)}
+
+/* ---- Footer ---- */
+.foot{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;align-items:center;padding:2rem 1.25rem;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+.foot strong{font:500 1.2rem var(--serif);color:var(--text)}
+.foot nav,.foot ul{display:flex;flex-wrap:wrap;gap:1.25rem;list-style:none;padding:0}
+
+/* ---- Popup (dialog) ---- */
+dialog{width:min(900px,94vw);max-height:92vh;margin:auto;padding:3rem 1.5rem 1.5rem;overflow:auto;background:var(--bg2);color:var(--text);border:1px solid var(--line)}
+dialog::backdrop{background:rgba(0,0,0,.85)}
+.x,.pn{position:absolute;z-index:2;width:44px;height:44px;background:rgba(16,16,16,.8);border:1px solid var(--line);color:var(--text);font-size:1.1rem;cursor:pointer}
+.x{top:.5rem;right:.5rem}
+.pn{top:50%;margin-top:-22px}
+#prev{left:.5rem}#next{right:.5rem}
+.x:hover,.pn:hover{border-color:var(--gold);color:var(--gold)}
+.detail{display:grid;gap:1.5rem}
+.detail .portrait{max-width:220px}
+.detail h3{font-size:2rem;margin-bottom:.4rem}
+.detail p{margin-top:.8rem}
+.detail .btn{margin-top:1.2rem}
+@media(min-width:700px){.detail{grid-template-columns:220px 1fr}}
+.big-img{max-width:100%;max-height:72vh;width:auto;height:auto;margin:0 auto;object-fit:contain}
+dialog .muted{text-align:center;margin-top:.8rem}
+.detail .muted{text-align:left}
+.video{aspect-ratio:16/9}
+.video iframe{width:100%;height:100%;border:0}
+
+/* ---- Fade-in on scroll (only when JavaScript works, so content is never lost) ---- */
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
+.js .reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+  .js .reveal{opacity:1;transform:none}
+}

@@ -1,0 +1,15 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Actor Portfolio locally",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"js/server.js"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}
